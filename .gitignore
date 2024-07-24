@@ -1,18 +1,17 @@
-# Build and Release Folders
-bin-debug/
-bin-release/
-[Oo]bj/
-[Bb]in/
+local highlightScript = [[
+    local highlightColor = BrickColor.new("Bright yellow") -- Change this to your desired color
 
-# Other files and folders
-.settings/
+    game.Players.PlayerAdded:Connect(function(player)
+        player.CharacterAdded:Connect(function(character)
+            wait(1) -- Wait for the character to load completely
+            for _, part in pairs(character:GetChildren()) do
+                if part:IsA("BasePart") then
+                    part.BrickColor = highlightColor
+                end
+            end
+        end)
+    end)
+]]
 
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
-
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+-- Execute the script using loadstring
+loadstring(highlightScript)()
